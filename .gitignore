@@ -31,5 +31,8 @@ Thumbs.db
 .env.local
 .env.*.local
 
+# RAG Memory
+.memory/
+
 # Output
 *.yaml.draft

@@ -1,134 +1,257 @@
-# AI Novel To Screenplay - 示例输出
-# 源自 examples/novel.txt
-title: 青云之巅
+title: 重生
 genre: fantasy
-author: 佚名
-summary: 废材少年林凡获得师父遗留的九转星辰诀传承，在宗门考核中崛起，揭开大长老的阴谋。
-
-metadata:
-  generator: AI Novel To Screenplay
-  version: 1.0.0
-  source_chapters: 3
-  word_count: 0
-  processing_time_ms: 0
-
+summary: ''
 characters:
-  - id: char_001
-    name: 林凡
-    gender: male
-    age: 18
-    role: protagonist
-    personality: 坚毅果敢，重情重义，隐忍三年不屈不挠
-    goal: 为师父报仇，重振青云宗
-    background: 孤儿出身，被老宗主收养，曾是天才后灵脉被封
-    relationships:
-      - target_id: char_002
-        relation: 同门
-        description: 内门天才弟子，与林凡联手对抗大长老
-      - target_id: char_003
-        relation: 敌对
-        description: 大长老一脉的内门弟子
-
-  - id: char_002
-    name: 林雪
-    gender: female
-    age: 17
-    role: supporting
-    personality: 善良正直，勇敢果断
-    goal: 救治师父，守护宗门
-    background: 现任宗主的弟子，内门天才
-    relationships:
-      - target_id: char_001
-        relation: 盟友
-        description: 联手对抗大长老
-
-  - id: char_003
-    name: 王浩
-    gender: male
-    age: 22
-    role: antagonist
-    personality: 狂妄自大，欺软怕硬
-    goal: 赶走林凡，讨好大长老
-    background: 大长老一脉的内门弟子，练气八层
-
+- id: char_001
+  name: 林凡
+  gender: male
+  age: ''
+  role: protagonist
+  personality: 坚毅果敢
+  goal: 不重蹈覆辙，变强
+  background: 重生者，前世为青云宗天才
+  relationships: []
+story_beats: []
 scenes:
-  - id: scene_001
-    chapter_ref: 1
-    heading:
-      scene_type: exterior
-      location: 青云宗外门小院
-      time: morning
-      description: 破旧的石台，稀疏的草木，晨光微曦
-    participants:
-      - char_001
-    objective: 展现林凡的困境和三年来的坚持
-    summary: 林凡修炼失败，回忆天才过往，与当前废材现状形成对比
-    dialogue: []
-    action_lines:
-      - 林凡盘膝坐在石台上，额头满是汗珠
-      - 他催动功法，灵力却如死水般毫无反应
-      - 林凡睁开眼，苦笑摇头
-    camera_notes:
-      - shot: medium_shot
-        subject: char_001
-        description: 林凡在石台上修炼
-      - shot: close_up
-        subject: char_001
-        description: 他额头上的汗珠和苦涩的表情
-    duration_estimate: 60
-
-  - id: scene_002
-    chapter_ref: 1
-    heading:
-      scene_type: exterior
-      location: 青云宗外门小院门外
-      time: morning
-      description: 院门外阳光刺目，三个不怀好意的身影
-    participants:
-      - char_001
-      - char_003
-    objective: 引入冲突 - 王浩羞辱林凡
-    summary: 王浩带人上门挑衅，通知林凡三天后考核将被逐出宗门
-    dialogue:
-      - speaker: char_003
-        content: 林凡，还不快出来！
-        emotion: 嚣张
-      - speaker: char_001
-        content: 王师兄，有何指教？
-        emotion: 冷静
-      - speaker: char_003
-        content: 大长老有令，三年内无法突破练气六层的弟子，一律逐出宗门。林凡，你连练气一层都保不住了吧？
-        emotion: 嘲讽
-      - speaker: char_001
-        content: 那又如何？
-        emotion: 隐忍
-      - speaker: char_003
-        content: 三天后就是考核。到时候，你最好自己滚下山，别等我们动手。
-        emotion: 威胁
-    action_lines:
-      - 王浩走上前一步，逼近林凡
-      - 王浩推了林凡一把，转身离开
-      - 林凡握紧拳头，指甲嵌入掌心
-    camera_notes:
-      - shot: establishing
-        subject: 院门
-        description: 三个人的身影在门口形成压迫感
-      - shot: over_shoulder
-        subject: char_001
-        description: 从林凡背后看王浩三人
-      - shot: close_up
-        subject: char_001
-        description: 林凡紧握的拳头渗出血丝
-    duration_estimate: 90
-
+- chapter_ref: 1
+  heading:
+    scene_type: interior
+    location: 陌生房间
+    time: morning
+    description: 一间简朴的房间，阳光从窗缝透入，林凡躺在一张硬板床上
+  participants:
+  - char_001
+  objective: 林凡意识到自己重生了
+  summary: 林凡从陌生的床上醒来，发现自己回到了过去，内心充满震惊与决心
+  action_lines:
+  - 林凡缓缓睁开眼，视线模糊
+  - 他坐起身，环顾四周陌生的环境
+  - 林凡低头看着自己年轻的双手，神情从迷茫转为坚定
+  duration_estimate: 90
+  id: scene_001
+  dialogue:
+  - speaker: char_001
+    content: 这是哪儿？我不是已经……
+    subtext: 林凡瞬间意识到自己可能重生了，但环境陌生让他警惕
+    emotion: 震惊中带着警觉
+  - speaker: char_001
+    content: 这双手……这么年轻？
+    subtext: 通过观察自己的身体确认重生事实，内心开始接受
+    emotion: 不可置信转为冷静
+  - speaker: char_001
+    content: 天不绝我林凡，这一世，我必登临巅峰！
+    subtext: 迅速调整心态，将震惊转化为决心
+    emotion: 坚定决绝
+  camera_notes:
+  - shot: close_up
+    subject: 林凡的眼睛
+    description: 视线模糊中缓缓睁开，睫毛颤动
+  - shot: wide_shot
+    subject: 陌生房间
+    description: 从林凡的视角环顾四周，展示陌生环境
+  - shot: close_up
+    subject: 林凡的双手
+    description: 低头凝视自己年轻的手掌，神情从迷茫转为坚定
+- chapter_ref: 1
+  heading:
+    scene_type: interior
+    location: 林凡的房间
+    time: morning
+    description: 房间内陈设简单，林凡站在一面铜镜前
+  participants:
+  - char_001
+  objective: 林凡确认重生事实并立下誓言
+  summary: 林凡通过镜中倒影确认自己回到了少年时期，回忆起上一世的悲剧，发誓改变命运
+  action_lines:
+  - 林凡走到铜镜前，凝视镜中年轻的自己
+  - 他闭上眼，脑海中闪过上一世陨落的画面
+  - 林凡睁开眼，眼中燃起火焰，低声自语
+  duration_estimate: 100
+  id: scene_002
+  dialogue:
+  - speaker: char_001
+    content: 真的是二十年前的自己……
+    subtext: 通过镜中影像彻底确认重生时间点
+    emotion: 感慨中带着笃定
+  - speaker: char_001
+    content: 上一世，我林凡陨落于天道之手。这一世，我定要逆天改命！
+    subtext: 回忆陨落画面激发复仇与抗争意志
+    emotion: 悲愤转为决然
+  - speaker: char_001
+    content: 欠我的，我会百倍讨回。护我的，我必万倍偿还。
+    subtext: 立下重誓，明确这一世的行为准则
+    emotion: 冷酷而坚定
+  camera_notes:
+  - shot: medium_shot
+    subject: 林凡与铜镜
+    description: 林凡走到铜镜前，凝视镜中倒影
+  - shot: over_shoulder
+    subject: 铜镜中的林凡
+    description: 过肩镜头中镜面映出年轻的面容
+  - shot: close_up
+    subject: 林凡的眼睛
+    description: 眼中燃起火焰，神情决绝
+- chapter_ref: 2
+  heading:
+    scene_type: exterior
+    location: 青云宗修炼场
+    time: morning
+    description: 宽阔的修炼场上，晨光普照，数十名弟子分散各处修炼
+  participants:
+  - char_001
+  objective: 林凡在修炼场上感受重生后的身体状态
+  summary: 林凡站在修炼场角落，默默感知体内稀薄的灵气，为未来的修炼之路做准备
+  action_lines:
+  - 修炼场上弟子们挥汗如雨，灵气波动四溢
+  - 林凡独自站在角落，闭目凝神
+  - 他抬起手，一缕微弱的灵气在指尖萦绕，随即消散
+  duration_estimate: 80
+  id: scene_003
+  dialogue:
+  - speaker: char_001
+    content: 这具身体根基太弱了，连灵气都凝聚不稳。
+    subtext: 检测到当前肉身的真实状态，意识到修炼之路需从头开始
+    emotion: 冷静分析中带着些许不甘
+  - speaker: char_001
+    content: 不过也好，一张白纸，正好由我来重新书写。
+    subtext: 将劣势转化为优势，展现出重生者的自信
+    emotion: 自信沉着
+  camera_notes:
+  - shot: wide_shot
+    subject: 修炼场
+    description: 弟子们挥汗如雨，灵气波动四溢的全景
+  - shot: medium_shot
+    subject: 林凡
+    description: 独自站在角落闭目凝神，与周围喧嚣形成对比
+  - shot: close_up
+    subject: 林凡的指尖
+    description: 一缕微弱灵气萦绕指尖，随即消散
+- chapter_ref: 2
+  heading:
+    scene_type: exterior
+    location: 青云宗修炼场
+    time: afternoon
+    description: 修炼场上大部分弟子已散去，只剩林凡一人
+  participants:
+  - char_001
+  objective: 林凡坚持修炼以巩固基础
+  summary: 林凡在空旷的修炼场上独自练习基础功法，为觉醒做准备
+  action_lines:
+  - 夕阳西斜，修炼场空无一人
+  - 林凡一遍遍重复着基础拳法，汗水浸透衣衫
+  - 他停下动作，抬头望向天空，眼神坚毅
+  duration_estimate: 70
+  id: scene_004
+  dialogue:
+  - speaker: char_001
+    content: 基础拳法，百遍不够就千遍。根基不稳，何以登天？
+    subtext: 用最笨拙的方式打磨肉身，展现超凡毅力
+    emotion: 坚毅执着
+  - speaker: char_001
+    content: 前世我急于求成，这一世，每一步都要踩实了走。
+    subtext: 反思前世教训，决定稳扎稳打
+    emotion: 沉稳内省
+  - speaker: char_001
+    content: 等着吧，青云宗，只是我的起点。
+    subtext: 心怀更广阔的天地，目标早已超越宗门
+    emotion: 傲然自信
+  camera_notes:
+  - shot: wide_shot
+    subject: 修炼场
+    description: 夕阳西斜，空无一人的修炼场笼罩在金色余晖中
+  - shot: tracking
+    subject: 林凡练拳
+    description: 跟拍林凡一遍遍重复基础拳法，汗水挥洒
+  - shot: dutch_angle
+    subject: 林凡仰望天空
+    description: 倾斜镜头仰拍，林凡停下动作望向天空，眼神坚毅
+- chapter_ref: 3
+  heading:
+    scene_type: exterior
+    location: 青云宗后山悬崖
+    time: night
+    description: 深夜，后山悬崖边，月光清冷地洒在崖壁上，四周寂静无声
+  participants:
+  - char_001
+  objective: 林凡在月夜下尝试觉醒力量
+  summary: 林凡独自来到后山悬崖，在月光下盘膝修炼，试图唤醒体内的力量
+  action_lines:
+  - 林凡穿过密林，来到悬崖边
+  - 他盘膝坐下，月光笼罩全身
+  - 林凡闭目调息，周围灵气缓缓汇聚
+  duration_estimate: 100
+  id: scene_005
+  dialogue:
+  - speaker: char_001
+    content: 月华之力……前世我从未真正引动过。
+    subtext: 尝试前世未曾掌握的力量，寻求突破
+    emotion: 期待中带着紧张
+  - speaker: char_001
+    content: 静心，凝神。天地灵气，听我号令。
+    subtext: 以强大意志引导灵气，展现灵魂深处的掌控力
+    emotion: 专注而威严
+  camera_notes:
+  - shot: tracking
+    subject: 林凡
+    description: 跟拍林凡穿过密林，拨开枝叶来到悬崖边
+  - shot: wide_shot
+    subject: 悬崖月夜
+    description: 月光笼罩下林凡盘膝而坐，周围灵气缓缓汇聚
+  - shot: close_up
+    subject: 林凡的面庞
+    description: 闭目调息，月光勾勒出坚毅的轮廓
+- chapter_ref: 3
+  heading:
+    scene_type: exterior
+    location: 青云宗后山悬崖
+    time: late_night
+    description: 夜深，月光更盛，林凡掌心浮现出古老的符文，光芒闪烁
+  participants:
+  - char_001
+  objective: 林凡成功觉醒古老符文
+  summary: 经过漫长修炼，林凡终于觉醒，掌心浮现神秘符文，他意识到命运开始改变
+  action_lines:
+  - 林凡猛然睁开眼，眼中精光一闪
+  - 他低头看向掌心，一枚古老符文缓缓浮现
+  - 林凡握紧拳头，符文光芒内敛，他露出坚定的笑容
+  duration_estimate: 120
+  id: scene_006
+  dialogue:
+  - speaker: char_001
+    content: 这是……上古符文？竟然在我体内觉醒！
+    subtext: 发现前世未曾显露的底牌，震惊于自己的潜力
+    emotion: 惊喜交加
+  - speaker: char_001
+    content: 天意如此。有了它，这一世的筹码更重了。
+    subtext: 迅速将觉醒视为逆转命运的关键武器
+    emotion: 野心勃勃
+  - speaker: char_001
+    content: 从今日起，我林凡，正式踏上逆天之路。
+    subtext: 以符文觉醒为标志，宣告新生的开始
+    emotion: 豪情万丈
+  camera_notes:
+  - shot: close_up
+    subject: 林凡的眼睛
+    description: 猛然睁开，眼中精光一闪
+  - shot: pov
+    subject: 掌心符文
+    description: 林凡低头看向掌心，古老符文缓缓浮现
+  - shot: two_shot
+    subject: 林凡与掌中符文
+    description: 林凡握紧拳头，符文光芒内敛，脸上露出坚定笑容
 score:
   structure: 85
-  dialogue: 80
-  pacing: 82
-  character_consistency: 88
-  overall: 84
-
+  dialogue: 76
+  pacing: 85
+  character_consistency: 85
+  overall: 82
 consistency_report:
   passed: true
   issues: []
   issue_count: 0
+metadata:
+  generator: AI Novel To Screenplay
+  version: 1.0.0
+  source_chapters: 0
+  word_count: 208
+  processing_time_ms: 65595

@@ -1,6 +1,7 @@
 """LangGraph 工作流 - 编排 6 个 Agent 的流水线（批量优化 + RAG 记忆）"""
 from __future__ import annotations
 import hashlib
+import re
 import time
 from typing import TypedDict
 from langgraph.graph import StateGraph, END
@@ -128,8 +129,13 @@ def node_generate_dialogue(state: WorkflowState) -> WorkflowState:
 
 def node_assemble_screenplay(state: WorkflowState) -> WorkflowState:
     """节点6: 剧本组装 + 镜头建议（1 次批量 LLM 调用）+ 评分 + 一致性检查"""
+    # 从第一个章节标题中提取书名
+    first_title = state["chapters"][0]["title"] if state["chapters"] else ""
+    _m = re.search(r'第[^章]+章\s*(.+)', first_title)
+    title = _m.group(1).strip() if _m else (first_title.strip() or "未命名剧本")
+
     screenplay = {
-        "title": state["chapters"][0]["title"].split("第")[-1].strip() if state["chapters"] else "未命名剧本",
+        "title": title,
         "genre": "fantasy",
         "summary": state["plot_data"].get("main_plot", ""),
         "characters": state["characters"],
