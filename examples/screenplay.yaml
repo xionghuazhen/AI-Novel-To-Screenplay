@@ -1,0 +1,134 @@
+# AI Novel To Screenplay - 示例输出
+# 源自 examples/novel.txt
+title: 青云之巅
+genre: fantasy
+author: 佚名
+summary: 废材少年林凡获得师父遗留的九转星辰诀传承，在宗门考核中崛起，揭开大长老的阴谋。
+
+metadata:
+  generator: AI Novel To Screenplay
+  version: 1.0.0
+  source_chapters: 3
+  word_count: 0
+  processing_time_ms: 0
+
+characters:
+  - id: char_001
+    name: 林凡
+    gender: male
+    age: 18
+    role: protagonist
+    personality: 坚毅果敢，重情重义，隐忍三年不屈不挠
+    goal: 为师父报仇，重振青云宗
+    background: 孤儿出身，被老宗主收养，曾是天才后灵脉被封
+    relationships:
+      - target_id: char_002
+        relation: 同门
+        description: 内门天才弟子，与林凡联手对抗大长老
+      - target_id: char_003
+        relation: 敌对
+        description: 大长老一脉的内门弟子
+
+  - id: char_002
+    name: 林雪
+    gender: female
+    age: 17
+    role: supporting
+    personality: 善良正直，勇敢果断
+    goal: 救治师父，守护宗门
+    background: 现任宗主的弟子，内门天才
+    relationships:
+      - target_id: char_001
+        relation: 盟友
+        description: 联手对抗大长老
+
+  - id: char_003
+    name: 王浩
+    gender: male
+    age: 22
+    role: antagonist
+    personality: 狂妄自大，欺软怕硬
+    goal: 赶走林凡，讨好大长老
+    background: 大长老一脉的内门弟子，练气八层
+
+scenes:
+  - id: scene_001
+    chapter_ref: 1
+    heading:
+      scene_type: exterior
+      location: 青云宗外门小院
+      time: morning
+      description: 破旧的石台，稀疏的草木，晨光微曦
+    participants:
+      - char_001
+    objective: 展现林凡的困境和三年来的坚持
+    summary: 林凡修炼失败，回忆天才过往，与当前废材现状形成对比
+    dialogue: []
+    action_lines:
+      - 林凡盘膝坐在石台上，额头满是汗珠
+      - 他催动功法，灵力却如死水般毫无反应
+      - 林凡睁开眼，苦笑摇头
+    camera_notes:
+      - shot: medium_shot
+        subject: char_001
+        description: 林凡在石台上修炼
+      - shot: close_up
+        subject: char_001
+        description: 他额头上的汗珠和苦涩的表情
+    duration_estimate: 60
+
+  - id: scene_002
+    chapter_ref: 1
+    heading:
+      scene_type: exterior
+      location: 青云宗外门小院门外
+      time: morning
+      description: 院门外阳光刺目，三个不怀好意的身影
+    participants:
+      - char_001
+      - char_003
+    objective: 引入冲突 - 王浩羞辱林凡
+    summary: 王浩带人上门挑衅，通知林凡三天后考核将被逐出宗门
+    dialogue:
+      - speaker: char_003
+        content: 林凡，还不快出来！
+        emotion: 嚣张
+      - speaker: char_001
+        content: 王师兄，有何指教？
+        emotion: 冷静
+      - speaker: char_003
+        content: 大长老有令，三年内无法突破练气六层的弟子，一律逐出宗门。林凡，你连练气一层都保不住了吧？
+        emotion: 嘲讽
+      - speaker: char_001
+        content: 那又如何？
+        emotion: 隐忍
+      - speaker: char_003
+        content: 三天后就是考核。到时候，你最好自己滚下山，别等我们动手。
+        emotion: 威胁
+    action_lines:
+      - 王浩走上前一步，逼近林凡
+      - 王浩推了林凡一把，转身离开
+      - 林凡握紧拳头，指甲嵌入掌心
+    camera_notes:
+      - shot: establishing
+        subject: 院门
+        description: 三个人的身影在门口形成压迫感
+      - shot: over_shoulder
+        subject: char_001
+        description: 从林凡背后看王浩三人
+      - shot: close_up
+        subject: char_001
+        description: 林凡紧握的拳头渗出血丝
+    duration_estimate: 90
+
+score:
+  structure: 85
+  dialogue: 80
+  pacing: 82
+  character_consistency: 88
+  overall: 84
+
+consistency_report:
+  passed: true
+  issues: []
+  issue_count: 0
