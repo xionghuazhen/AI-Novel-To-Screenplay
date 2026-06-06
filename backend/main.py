@@ -8,6 +8,7 @@ from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse, JSONResponse
 from pydantic import BaseModel, ValidationError as PydanticValidationError
+from backend.config import app_config
 from agents.workflow import run_workflow
 from agents.dialogue_agent import modify_dialogue
 
@@ -63,6 +64,24 @@ async def health():
     return {"status": "ok", "service": "AI Novel To Screenplay"}
 
 
+# 全局统计计数器
+_processing_stats = {"total_requests": 0, "total_processing_time_ms": 0, "total_words_processed": 0}
+
+
+@app.get("/api/stats")
+async def get_stats():
+    """返回处理统计信息"""
+    total = _processing_stats["total_requests"]
+    avg_time = _processing_stats["total_processing_time_ms"] / total if total > 0 else 0
+    return {
+        "total_requests": total,
+        "avg_processing_time_ms": round(avg_time),
+        "total_words_processed": _processing_stats["total_words_processed"],
+        "llm_provider": app_config.llm.provider,
+        "llm_model": app_config.llm.model,
+    }
+
+
 @app.post("/api/parse")
 async def parse_novel(req: ParseRequest):
     """粘贴小说文本，返回结构化剧本 YAML"""
@@ -85,6 +104,11 @@ async def parse_novel(req: ParseRequest):
     }
 
     yaml_output = yaml.dump(result, allow_unicode=True, default_flow_style=False, sort_keys=False)
+
+    # 更新统计
+    _processing_stats["total_requests"] += 1
+    _processing_stats["total_processing_time_ms"] += elapsed
+    _processing_stats["total_words_processed"] += len(req.text)
 
     return {
         "yaml": yaml_output,

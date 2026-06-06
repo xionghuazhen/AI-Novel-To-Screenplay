@@ -33,6 +33,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'yaml' | 'preview' | 'score'>('preview')
   const [elapsed, setElapsed] = useState(0)
   const [currentStage, setCurrentStage] = useState(-1)
+  const [copied, setCopied] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
@@ -149,6 +150,20 @@ export default function Home() {
     URL.revokeObjectURL(url)
   }
 
+  async function copyYaml() {
+    await navigator.clipboard.writeText(yaml)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  // Ctrl+Enter / Cmd+Enter 提交
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault()
+      if (!loading && text.trim()) handleSubmit()
+    }
+  }
+
   // 检测章节数量
   const chapterCount = (text.match(/第[零一二三四五六七八九十百千\d]+章/g) || []).length
   const wordCount = text.length
@@ -203,7 +218,8 @@ export default function Home() {
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="在此粘贴小说文本（支持 ≥3 章节，自动识别章节标记）..."
+            onKeyDown={handleKeyDown}
+            placeholder="在此粘贴小说文本（支持 ≥3 章节，自动识别章节标记）...&#10;提示：Ctrl+Enter 快速提交"
             className="w-full h-80 p-4 rounded-xl bg-gray-900 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-y text-sm font-mono text-gray-200 placeholder-gray-600"
           />
 
@@ -290,12 +306,20 @@ export default function Home() {
                 </button>
               ))}
               {yaml && (
-                <button
-                  onClick={downloadYaml}
-                  className="ml-2 px-3 py-1 text-xs rounded-lg bg-green-700 hover:bg-green-600 text-white transition-colors"
-                >
-                  下载
-                </button>
+                <>
+                  <button
+                    onClick={copyYaml}
+                    className="ml-2 px-3 py-1 text-xs rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 transition-colors"
+                  >
+                    {copied ? '已复制' : '复制'}
+                  </button>
+                  <button
+                    onClick={downloadYaml}
+                    className="px-3 py-1 text-xs rounded-lg bg-green-700 hover:bg-green-600 text-white transition-colors"
+                  >
+                    下载
+                  </button>
+                </>
               )}
             </div>
           </div>
