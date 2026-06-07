@@ -34,8 +34,29 @@ export default function Home() {
   const [elapsed, setElapsed] = useState(0)
   const [currentStage, setCurrentStage] = useState(-1)
   const [copied, setCopied] = useState(false)
+  const [draftSaved, setDraftSaved] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const draftTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // 草稿自动保存 (3秒防抖)
+  useEffect(() => {
+    if (draftTimerRef.current) clearTimeout(draftTimerRef.current)
+    if (text.trim()) {
+      draftTimerRef.current = setTimeout(() => {
+        localStorage.setItem('screenplay_draft', text)
+        setDraftSaved(true)
+        setTimeout(() => setDraftSaved(false), 1500)
+      }, 3000)
+    }
+    return () => { if (draftTimerRef.current) clearTimeout(draftTimerRef.current) }
+  }, [text])
+
+  // 恢复草稿
+  useEffect(() => {
+    const draft = localStorage.getItem('screenplay_draft')
+    if (draft && !text) setText(draft)
+  }, [])
 
   // 计时器
   useEffect(() => {
@@ -169,11 +190,55 @@ export default function Home() {
   const wordCount = text.length
   const canSubmit = !loading && text.trim() && wordCount >= 100
 
+  function loadExample() {
+    setText(`第一章 重生
+
+林凡睁开眼，发现自己躺在一张陌生的床上。脑海中的记忆如潮水般涌来——他重生了。
+
+上一世，他是青云宗最耀眼的天才，却遭挚友背叛，被最信任的师父亲手推下悬崖。这一世，他绝不会重蹈覆辙。
+
+林凡坐起身，打量四周。简陋的木屋，破旧的家具，这应该就是青云宗最低等的外门弟子居所。
+
+门外传来脚步声，一个苍老的声音响起："林凡，该去做早课了。"
+
+林凡认得这个声音——是负责外门弟子起居的陈伯。他站起身，推门而出。
+
+第二章 修炼
+
+青云宗的修炼场上，数十名弟子正在修炼。林凡站在角落，感受着体内稀薄的灵气。
+
+这一世他的修为还未恢复，必须从头开始修炼。但他拥有前世的记忆和经验，修炼速度远超常人。
+
+"林凡，你怎么还在这里？大长老让你去打扫藏经阁。"一个傲慢的声音从身后传来。
+
+林凡转头，看见一个衣着华丽的少年正轻蔑地看着他。这人叫赵鹏，是大长老的侄子，平日里最喜欢欺负外门弟子。
+
+林凡淡淡地说："知道了。"然后转身离开，留下赵鹏在原地一脸愕然。
+
+第三章 觉醒
+
+深夜，林凡独自来到后山的悬崖边——这正是前世他被推下去的地方。
+
+月光洒在崖壁上，林凡盘膝而坐。他运转起前世自创的《混沌诀》，体内灵气开始疯狂涌动。
+
+突然，丹田处传来一阵剧痛，仿佛有什么东西正在破壳而出。林凡咬牙坚持，汗水浸透了他的衣衫。
+
+不知过了多久，剧痛渐渐消退。林凡睁开眼，发现掌心浮现出一枚古老的符文——这是混沌血脉觉醒的标记。
+
+"终于觉醒了。"林凡握紧拳头，眼中闪烁着坚定的光芒。"这一世，我要守护所有珍视的人。"
+
+远处，一道苍老的身影注视着这一切，眼中闪过一丝复杂的光芒。那是他的师父，王海。`)
+  }
+
   function formatTime(seconds: number) {
     const m = Math.floor(seconds / 60)
     const s = seconds % 60
     return m > 0 ? `${m}分${s}秒` : `${s}秒`
   }
+
+  // 预估处理时间
+  const estimatedTime = Math.ceil(wordCount / 50) // ~50字/秒处理速度
+  const showEstimate = wordCount >= 100 && !loading
 
   return (
     <main className="max-w-7xl mx-auto p-4 md:p-8">
@@ -191,6 +256,12 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-200">小说输入</h2>
             <div className="flex gap-2">
+              <button
+                onClick={loadExample}
+                className="px-3 py-1.5 text-sm rounded-lg bg-purple-900/50 hover:bg-purple-800/50 text-purple-300 border border-purple-700/50 transition-colors"
+              >
+                示例
+              </button>
               {text && (
                 <button
                   onClick={resetAll}
@@ -231,6 +302,14 @@ export default function Home() {
               <span className={`text-xs ${chapterCount >= MIN_CHAPTERS ? 'text-green-500' : 'text-yellow-500'}`}>
                 检测到 {chapterCount} 章{chapterCount < MIN_CHAPTERS ? ' (建议≥3章)' : ''}
               </span>
+            )}
+            {showEstimate && (
+              <span className="text-xs text-gray-600">
+                预计耗时 ~{formatTime(estimatedTime)}
+              </span>
+            )}
+            {draftSaved && (
+              <span className="text-xs text-green-600 animate-pulse">草稿已保存</span>
             )}
             <button
               onClick={handleSubmit}
@@ -375,6 +454,17 @@ export default function Home() {
 }
 
 function PreviewPane({ data }: { data: ScreenplayData }) {
+  const [expandedScenes, setExpandedScenes] = useState<Set<string>>(new Set())
+
+  function toggleScene(id: string) {
+    setExpandedScenes(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
   return (
     <div className="space-y-4 text-sm">
       <div className="border-b border-gray-800 pb-3">
@@ -402,31 +492,42 @@ function PreviewPane({ data }: { data: ScreenplayData }) {
         <div>
           <h4 className="text-xs font-semibold text-gray-400 uppercase mb-2">场景 ({data.scenes.length})</h4>
           <div className="space-y-3 max-h-64 overflow-auto">
-            {data.scenes.map((scene) => (
-              <div key={scene.id} className="p-3 rounded-lg bg-gray-800/50 border border-gray-700/50">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-mono text-blue-400">{scene.id}</span>
-                  <span className="text-xs text-gray-500">|</span>
-                  <span className="text-sm text-gray-200">{scene.heading?.location}</span>
-                  <span className="text-xs text-gray-500">· {scene.heading?.time}</span>
-                </div>
-                {scene.objective && <p className="text-xs text-gray-400 mb-1">{scene.objective}</p>}
-                {scene.dialogue?.length > 0 && (
-                  <div className="space-y-1 mt-2">
-                    {scene.dialogue.slice(0, 3).map((d, i) => (
-                      <p key={i} className="text-xs">
-                        <span className="text-yellow-400">{data.characters.find(c => c.id === d.speaker)?.name || d.speaker}:</span>
-                        <span className="text-gray-300 ml-1">{d.content}</span>
-                        {d.emotion && <span className="text-gray-600 ml-1">[{d.emotion}]</span>}
-                      </p>
-                    ))}
+            {data.scenes.map((scene) => {
+              const isExpanded = expandedScenes.has(scene.id)
+              const showAll = isExpanded || scene.dialogue.length <= 3
+              return (
+                <div
+                  key={scene.id}
+                  onClick={() => scene.dialogue.length > 3 && toggleScene(scene.id)}
+                  className={`p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 ${scene.dialogue.length > 3 ? 'cursor-pointer hover:border-gray-600/50' : ''}`}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-mono text-blue-400">{scene.id}</span>
+                    <span className="text-xs text-gray-500">|</span>
+                    <span className="text-sm text-gray-200">{scene.heading?.location}</span>
+                    <span className="text-xs text-gray-500">· {scene.heading?.time}</span>
                     {scene.dialogue.length > 3 && (
-                      <p className="text-xs text-gray-600">...还有 {scene.dialogue.length - 3} 句对白</p>
+                      <span className="ml-auto text-xs text-gray-600">{isExpanded ? '收起' : '展开'}</span>
                     )}
                   </div>
-                )}
-              </div>
-            ))}
+                  {scene.objective && <p className="text-xs text-gray-400 mb-1">{scene.objective}</p>}
+                  {scene.dialogue?.length > 0 && (
+                    <div className="space-y-1 mt-2">
+                      {(showAll ? scene.dialogue : scene.dialogue.slice(0, 3)).map((d, i) => (
+                        <p key={i} className="text-xs">
+                          <span className="text-yellow-400">{data.characters.find(c => c.id === d.speaker)?.name || d.speaker}:</span>
+                          <span className="text-gray-300 ml-1">{d.content}</span>
+                          {d.emotion && <span className="text-gray-600 ml-1">[{d.emotion}]</span>}
+                        </p>
+                      ))}
+                      {!showAll && (
+                        <p className="text-xs text-gray-600">...还有 {scene.dialogue.length - 3} 句对白</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
         </div>
       )}
